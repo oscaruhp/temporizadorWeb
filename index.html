@@ -1,0 +1,67 @@
+<html>
+<head>
+     <title>Primer Script de JavaScript</title>
+    <script
+  src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/timer.jquery.min.js"></script>
+   <link rel="stylesheet" href="css/bootstrap.min.css" >
+    
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="text-center">
+                <br/>
+                <h2>Temporizador</h2>
+        <div class="jumbotron col-md-4 col-md-offset-4">
+            
+            <h1 id="timerDiv">00:00:00</h1>
+        </div>
+                
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-4">
+                        
+            <div class="col-md-4">
+                Hora
+            <input class="form-control" type="number" id="h" value="0" min="0" max="60">
+            </div>
+            <div class="col-md-4">
+                Minutos
+            <input class="form-control" type="number" value="1" min="0" max="60" id="m">
+            </div>
+            <div class="col-md-4">
+                Segundos
+            <input  class="form-control" type="number" min="0" max="60" value="60" id="s">
+            </div>
+                  <div class="col-md-12">
+                   <br/>   
+                  <button type="button" class="btn btn-success btn-lg btn-block" onclick="empezar()">Empezar</button>
+                      </div>  
+                       
+            </div>
+            </div>
+      
+                </div>
+       </div>
+        
+<script>
+audio = new Audio("sound/alarma.mp3"); 
+function empezar(){
+   audio.pause();
+   audio.currentTime = 0;
+  $('#timerDiv').timer('remove');
+  $('#timerDiv').timer({
+    countdown: true,
+    duration: $('#h').val()+"h"+$('#m').val()+"m"+$('#s').val()+'s',     
+    callback: function() {  
+        audio.addEventListener('ended', function() {
+    this.currentTime = 0;
+    this.play();
+}, false);
+        audio.play();
+    },
+    format: '%H:%M:%S'  
+});
+    }
+</script>
+    </body>
+</html>
